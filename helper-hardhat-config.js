@@ -23,6 +23,7 @@ const networkConfig = {
         callbackGasLimit: "500000", // 500,000 gas
         vrfCoordinatorV2Address: "0x2ca8e0c643bde4c2e08ab1fa0da3401adad7734d",
         mintFee: "10000000000000000",
+        ethUsdPriceFeedAddress: "0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e",
     },
     1: {
         name: "mainnet",
