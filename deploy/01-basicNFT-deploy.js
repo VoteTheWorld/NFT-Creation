@@ -12,7 +12,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
         ? 1
         : VERIFICATION_BLOCK_CONFIRMATIONS
 
-    await deploy("BasicNFT", {
+    const BasicNFT = await deploy("BasicNFT", {
         from: deployer,
         args: args,
         log: true,
@@ -24,7 +24,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
         process.env.ETHERSCAN_API_KEY
     ) {
         log("verifying...")
-        verify(RandomIpfsNFT.address, args)
+        verify(BasicNFT.address, args)
     }
 }
 

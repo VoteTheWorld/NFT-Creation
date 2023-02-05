@@ -34,14 +34,13 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     let vrfCoordinatorV2Address, subscriptionId, vrfCoordinatorV2Mock
 
     if (chainId == 31337) {
-        log("bug is here")
         vrfCoordinatorV2Mock = await ethers.getContract("VRFCoordinatorV2Mock")
-        log("1111111")
         vrfCoordinatorV2Address = vrfCoordinatorV2Mock.address
 
         const tx = await vrfCoordinatorV2Mock.createSubscription()
-        const txRecipt = tx.wait(1)
-        subscriptionId = txRecipt.event[0].args.subId
+        const txRecipt = await tx.wait(1)
+
+        subscriptionId = txRecipt.events[0].args.subId
         await vrfCoordinatorV2Mock.fundSubscription(subscriptionId, FUND_AMOUNT)
     } else {
         vrfCoordinatorV2Address = networkConfig[chainId].vrfCoordinatorV2Address
@@ -79,7 +78,6 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
         !developmentChains.includes(network.name) &&
         process.env.ETHERSCAN_API_KEY
     ) {
-        log("verifying...")
         verify(RandomIpfsNFT.address, args)
     }
 }
