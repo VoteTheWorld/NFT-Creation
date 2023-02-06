@@ -1,7 +1,5 @@
-const {
-    developmentChains,
-    VERIFICATION_BLOCK_CONFIRMATIONS,
-} = require("../helper-hardhat-config")
+const { network } = require("hardhat")
+const { developmentChains } = require("../helper-hardhat-config")
 const { verify } = require("../utils/verify")
 
 module.exports = async ({ getNamedAccounts, deployments }) => {
@@ -10,7 +8,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     const args = []
     const waitBlockComfirmation = developmentChains.includes(network.name)
         ? 1
-        : VERIFICATION_BLOCK_CONFIRMATIONS
+        : network.config.blockConfirmations
 
     const BasicNFT = await deploy("BasicNFT", {
         from: deployer,
@@ -23,8 +21,8 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
         !developmentChains.includes(network.name) &&
         process.env.ETHERSCAN_API_KEY
     ) {
-        verify(BasicNFT.address, args)
+        await verify(BasicNFT.address, args)
     }
 }
 
-module.exports.tags = ["main", "BasicNFT"]
+module.exports.tags = ["all", "main", "BasicNFT"]

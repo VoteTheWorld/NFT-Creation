@@ -1,9 +1,5 @@
 const { network } = require("hardhat")
-const {
-    networkConfig,
-    developmentChains,
-    VERIFICATION_BLOCK_CONFIRMATIONS,
-} = require("../helper-hardhat-config")
+const { networkConfig, developmentChains } = require("../helper-hardhat-config")
 const { verify } = require("../utils/verify")
 const fs = require("fs")
 
@@ -13,7 +9,7 @@ module.exports = async ({ deployments, getNamedAccounts }) => {
     chainId = network.config.chainId
     const waitBLockConfirmation = developmentChains.includes(network.name)
         ? 1
-        : VERIFICATION_BLOCK_CONFIRMATIONS
+        : network.config.blockConfirmations
 
     let ethUsdPriceFeedAddress
     if (chainId == 31337) {
@@ -47,4 +43,4 @@ module.exports = async ({ deployments, getNamedAccounts }) => {
     }
 }
 
-module.exports.tags = ["main", "DynamicSvgNFT"]
+module.exports.tags = ["all", "main", "DynamicSvgNFT"]

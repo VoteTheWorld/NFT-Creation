@@ -1,8 +1,4 @@
-const {
-    developmentChains,
-    VERIFICATION_BLOCK_CONFIRMATIONS,
-    networkConfig,
-} = require("../helper-hardhat-config")
+const { developmentChains, networkConfig } = require("../helper-hardhat-config")
 const { verify } = require("../utils/verify")
 const {
     storeImages,
@@ -30,7 +26,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     const chainId = network.config.chainId
     const waitBlockComfirmation = developmentChains.includes(network.name)
         ? 1
-        : VERIFICATION_BLOCK_CONFIRMATIONS
+        : network.config.blockConfirmations
     let vrfCoordinatorV2Address, subscriptionId, vrfCoordinatorV2Mock
 
     if (chainId == 31337) {
@@ -78,7 +74,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
         !developmentChains.includes(network.name) &&
         process.env.ETHERSCAN_API_KEY
     ) {
-        verify(RandomIpfsNFT.address, args)
+        await verify(RandomIpfsNFT.address, args)
     }
 }
 
@@ -106,4 +102,4 @@ async function handleTokenUris() {
     return tokenUris
 }
 
-module.exports.tags = ["main", "RandomIpfsNFT"]
+module.exports.tags = ["all", "main", "RandomIpfsNFT"]

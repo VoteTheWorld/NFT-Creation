@@ -33,6 +33,7 @@ module.exports = {
             //   },
             saveDeployments: true,
             chainId: 5,
+            blockConfirmations: 6,
         },
     },
     etherscan: {
