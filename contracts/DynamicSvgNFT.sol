@@ -22,7 +22,7 @@ contract DynamicSvgNFT is ERC721 {
         address priceFeed,
         string memory lowSvg,
         string memory highSvg
-    ) ERC721("SVGNFT", "SVG") {
+    ) ERC721("Dynamic SVG NFT", "SVG") {
         i_priceFeed = AggregatorV3Interface(priceFeed);
         s_tokenCounter = 0;
         s_lowImageURI = svgToImageURI(lowSvg);
@@ -69,7 +69,7 @@ contract DynamicSvgNFT is ERC721 {
                         bytes(
                             abi.encodePacked(
                                 '{"name":"',
-                                name(),
+                                name(), // You can add whatever name here
                                 '", "description":"An NFT that changes based on the Chainlink Feed", ',
                                 '"attributes": [{"trait_type": "coolness", "value": 100}], "image":"',
                                 imageURI,
@@ -79,5 +79,21 @@ contract DynamicSvgNFT is ERC721 {
                     )
                 )
             );
+    }
+
+    function getTokenCounter() public view returns (uint256) {
+        return s_tokenCounter;
+    }
+
+    function getLowSvgImageURI() public view returns (string memory) {
+        return s_lowImageURI;
+    }
+
+    function getHighSvgImageURI() public view returns (string memory) {
+        return s_highImageURI;
+    }
+
+    function getPriceFeed() public view returns (AggregatorV3Interface) {
+        return i_priceFeed;
     }
 }

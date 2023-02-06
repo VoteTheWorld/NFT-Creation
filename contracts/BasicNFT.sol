@@ -6,7 +6,7 @@ pragma solidity ^0.8.9;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
 contract BasicNFT is ERC721 {
-    string constant TOKEN_URI =
+    string public constant TOKEN_URI =
         "ipfs://QmaVkBn2tKmjbhphU7eyztbvSQU5EXDdqRyXZtRhSGgJGo";
     uint256 private s_tokenCounter;
 
