@@ -3,25 +3,37 @@ pragma solidity ^0.8.8;
 
 import "erc721a/contracts/ERC721A.sol";
 
-contract Brand3DAO is ERC721A {
-    string public constant TOKEN_URI =
-        "ipfs://QmaVkBn2tKmjbhphU7eyztbvSQU5EXDdqRyXZtRhSGgJGo";
+error NotOwner();
 
-    constructor() ERC721A("Brand3DAO", "BTD") {
+contract Brand3DAO is ERC721A {
+    address private owner;
+    string private token_URI =
+        "ipfs://QmNYSFjNDBidvta5Vgv6xe9GxKcAoBVc8GV1DVTMyeWCGX";
+
+    constructor() ERC721A("Brand3DAO", "B3D") {
         _mint(msg.sender, 10);
+        owner = msg.sender;
+    }
+
+    modifier onlyOwner() {
+        if (msg.sender == owner) {
+            _;
+        } else {
+            revert NotOwner();
+        }
     }
 
     function mint(uint256 quantity) external payable {
         _mint(msg.sender, quantity);
     }
 
-    function batchMint(address to, uint256 quantity) external {
-        _mint(to, quantity);
-    }
-
     function tokenURI(
         uint256 /*tokenId*/
-    ) public pure override returns (string memory) {
-        return TOKEN_URI;
+    ) public view override returns (string memory) {
+        return token_URI;
+    }
+
+    function batchMint(address to, uint256 quantity) public onlyOwner {
+        _mint(to, quantity);
     }
 }
