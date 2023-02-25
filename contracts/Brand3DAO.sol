@@ -8,7 +8,7 @@ error NotOwner();
 contract Brand3DAO is ERC721A {
     address private owner;
     string private token_URI =
-        "ipfs://QmNYSFjNDBidvta5Vgv6xe9GxKcAoBVc8GV1DVTMyeWCGX";
+        "ipfs://QmZGnpGnL6vGErj17d8734juNfPYr8nCRn2wSMN5Du28jK";
 
     constructor() ERC721A("Brand3DAO", "B3D") {
         _mint(msg.sender, 10);

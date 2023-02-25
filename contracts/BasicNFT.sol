@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
 contract BasicNFT is ERC721 {
     string public constant TOKEN_URI =
-        "ipfs://QmaVkBn2tKmjbhphU7eyztbvSQU5EXDdqRyXZtRhSGgJGo";
+        "ipfs://QmXbwZVBUJJQQCd3iUdbspMoESVboPPGb4UyfzGiHsEVgH";
     uint256 private s_tokenCounter;
 
     constructor() ERC721("shensixian", "ssx") {

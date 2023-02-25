@@ -39,7 +39,7 @@ module.exports = {
             chainId: 5,
             blockConfirmations: 6,
             gas: 2100000,
-            gasPrice: 8000000000,
+            gasPrice: 80000000000,
         },
         mainnet: {
             url: MAINNET_RPC_URL,
